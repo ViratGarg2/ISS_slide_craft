@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Page</title>
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <style>
+@font-face {
+    font-family: myfont;
+    src: url(/static/Hey\ Comic.ttf);
+}
+@font-face {
+    font-family: myfont2;
+    src: url(/static/Stencilia.ttf);
+}
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    box-shadow: 10px 9px 8px aqua; 
+}
+
+th,
+td {
+    border: 5px solid #000000;
+    text-align: left;
+    font-family: myfont;
+    padding: 8px;
+    color: black;
+}
+
+th,
+td {
+    background-color: #f2f2f2;
+}
+
+h1 {
+    font-size: 50px;
+    font-family: myfont2;
+    text-align: center;
+    margin-top: -300px;
+}
+
+h2 {
+    font-family: myfont;
+    color:white;
+    text-align: center;
+    margin-top: 0;
+}
+
+#e1 {
+    color: #6f1bc2;
+}
+
+#e2 {
+    color: #1a3bce;
+}
+#admin{
+    margin-left: -210px;
+}
+
+.btn-primary{
+    font-family: myfont;
+    padding:20px;
+    color:white;
+    text-decoration: none;
+    border:5px solid aqua;
+    box-shadow: 5px 4.5px 4px aqua; 
+}
+
+
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1><span id="e1">SLIDE </span><span id="e2">CRAFT</span></h1>
+        <h2>Admin Page</h2>
+        <h2 id="admin">Welcome, Admin</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>User ID</th>
+                    <th>Username</th>
+                    <th>Name</th> 
+                    <th>Date of Birth</th> 
+                    <th>Sign Up Date</th>
+                    <th>Last Login</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                <tr>
+                    <td>{{ loop.index }}</td>
+                    <td>{{ user.username }}</td>
+                    <td>{{ user.name }}</td> 
+                    <td>{{ user.dob }}</td>
+                    <td>xx/xx/xxxx</td> 
+                    <td>xx/xx/xxxx</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <br></br>
+        <br></br>
+        <a href="{{ url_for('login') }}" class="btn-primary">Login Page</a>
+    </div>
+</body>
+
+</html>
+
+</html>

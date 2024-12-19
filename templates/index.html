@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slide Craft - Create Stunning Videos</title>
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <script src="static/script.js"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: myfont;
+        }
+
+        body {
+            font-family: myfont;
+            background-color: #f4f4f4;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            background-color: #DEC5E3;
+            color: #333;
+        }
+
+        header img {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+        }
+
+        .logo-name {
+            font-family: 'myfont2';
+            font-size: 48px;
+            color: #3498db;
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: 3px solid #3498db;
+            animation: typing 3s steps(30, end), blink-caret 0.95s step-end infinite;
+            margin-bottom: 20px;
+        }
+
+        .separate-nav {
+            background-color: #81F7E5;
+            color: #fff;
+            padding: 10px;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .separate-nav a {
+            color: #3498db;
+            text-decoration: none;
+            margin: 0 15px;
+            font-size: 18px;
+            transition: color 0.3s ease-in-out;
+            padding: 10px 20px;
+            border-radius: 60px;
+        }
+
+        .separate-nav a:hover {
+            color: #333;
+        }
+
+        section {
+            padding: 40px;
+        }
+
+        .hero {
+            background-image: url('https://bootstrapmade.com/demo/templates/Rapid/assets/img/intro-img.svg');
+            background-size: cover;
+            background-position: center;
+            height: 600px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            text-align: center;
+            position: relative;
+            transition: background-color 0.5s ease-in-out;
+        }
+
+        .hero:hover {
+            background-color: #a0a0a0;
+        }
+
+        .cta {
+            background-image:url('static/cool-background.png');
+            color: #fff;
+            padding: 40px;
+            text-align: center;
+            margin-top: 20px;
+            border-radius: 10px;
+            transition: background-color 0.5s ease-in-out, color 0.5s ease-in-out, transform 0.3s ease-in-out;
+        }
+
+        .cta:hover {
+            background-color: #3498db;
+            color: #fff;
+            transform: scale(1.05);
+        }
+
+        .cta h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            transition: color 0.5s ease-in-out;
+        }
+
+        .cta button {
+            background-color: #81F7E5;
+            color: #333;
+            padding: 15px 30px;
+            font-size: 18px;
+            border: 2px solid #81F7E5;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out, border-color 0.3s ease-in-out;
+        }
+
+        .cta button:hover,
+        .feature:hover {
+            background-color: #CDEDFD;
+            border-color: #3498db;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .features {
+            background: linear-gradient(169deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%);
+            justify-content: space-around;
+            flex-wrap: wrap;
+            margin-top: 40px;
+        }
+
+        .feature {
+            text-align: center;
+            margin: 20px;
+            width:800px;
+            margin-left:550px;
+            padding: 20px;
+            background-color: #CDEDFD;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .feature:hover{
+            transform: translateY(-10px);
+
+        }
+
+        .info p {
+            color: orange;
+        }
+
+        @keyframes typing {
+            from {
+                width: 0;
+            }
+
+            to {
+                width: 100%;
+            }
+        }
+
+        @keyframes blink-caret {
+
+            from,
+            to {
+                border-color: transparent;
+            }
+
+            50% {
+                border-color: #3498db;
+            }
+        }
+
+        @font-face {
+            font-family: 'myfont';
+            src: url(/static/Bubble.ttf);
+        }
+
+        @font-face {
+            font-family: 'myfont2';
+            src: url(static/Stencilia.ttf);
+        }
+
+        footer {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+            bottom: 0;
+        }
+
+        .about {
+            background-color: #fff;
+            padding: 40px;
+            margin-top: 40px;
+            border-radius: 10px;
+            box-shadow: 19px 20px 8px 18px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            position: relative;
+        }
+
+        .about:hover{
+            transform: translateY(-20px);
+            transition: ease-in-out;
+            color: purple;
+        }
+
+
+
+        .about img {
+            width: 100%;
+            max-width: 400px;
+            border-radius: 10px;
+            margin-right: 20px;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .about img:hover {
+            transform: scale(1.05);
+        }
+
+        .about-content {
+            background-image:url('static/cool-background(2).png');
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .about-text {
+            max-width: 600px;
+            text-align: center;
+        }
+
+        .about h2 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color:white;
+            transition: color 0.3s ease-in-out;
+        }
+
+        .about p {
+            font-size: 16px;
+            color: #05283f;
+            line-height: 1.6;
+        }
+
+
+
+        .about-button {
+            display: inline-block;
+            background-color: #3498db;
+            color: #fff;
+            padding: 10px 20px;
+            font-size: 18px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out, transform 0.3s ease-in-out;
+        }
+
+        .about-button:hover {
+            background-color: #041a29;
+            color: #fff;
+            transform: scale(1.05);
+        }
+
+        ul {
+            color:white;
+            list-style-type: none;
+            padding: 0;
+        }
+
+        ul li {
+            padding-left: 30px;
+            position: relative;
+            margin-bottom: 10px;
+            line-height: 1.6;
+        }
+
+        ul li::before {
+            content: '✓';
+            color: #041a29;
+            font-size: 20px;
+            position: absolute;
+            left: 0;
+        }
+
+        .title p {
+            color: #3498db;
+        }
+
+        .timeline-container {
+            background-image: linear-gradient(169deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%);
+            display: flex;
+            justify-content: center;
+            margin: 20px;
+        }
+
+        .timeline {
+            background: var(--primary-color);
+            padding: 20px;
+            width: 100%;
+            max-width: 800px;
+            margin-top: 187px;
+        }
+
+   
+        #time-img{
+            border-radius: 20px;
+            scale: 0.7;
+            transition: transform 0.3s ease-in-out;
+        }
+        #time-img:hover{
+            scale: 0.75;
+            border-radius:0px;
+        }
+
+
+        .headlearn {
+            font-size: 70px;
+            margin-right: -110;
+            margin-top: 15%;
+            color: white;
+        }
+
+        .card {
+            position: relative;
+            max-width: 400px;
+        }
+
+        .card:nth-child(odd) {
+            padding: 30px 0 30px 30px;
+        }
+
+        .card:nth-child(even) {
+            padding: 30px 30px 30px 0;
+        }
+
+        .card::before {
+            content: "";
+            position: absolute;
+            width: 50%;
+            border: solid #B6DCFE;
+        }
+
+        .card:nth-child(odd)::before {
+            left: 0px;
+            top: -4.5px;
+            bottom: -4.5px;
+            border-width: 5px 0 5px 5px;
+            border-radius: 50px 0 0 50px;
+        }
+
+        .card:nth-child(even)::before {
+            right: 0;
+            top: 0;
+            bottom: 0;
+            border-width: 5px 5px 5px 0;
+            border-radius: 0 50px 50px 0;
+        }
+
+        .card:first-child::before {
+            border-top: 0;
+            border-top-left-radius: 0;
+        }
+
+        .card:last-child:nth-child(odd)::before {
+            border-bottom: 0;
+            border-bottom-left-radius: 0;
+        }
+
+        .card:last-child:nth-child(even)::before {
+            border-bottom: 0;
+            border-bottom-right-radius: 0;
+        }
+
+        .info {
+            display: flex;
+            flex-direction: column;
+            background: #333;
+            color: gray;
+            border-radius: 10px;
+            padding: 10px;
+        }
+
+        .title {
+            color: #81F7E5;
+            position: relative;
+        }
+
+        .title::before {
+            content: "";
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: white;
+            border-radius: 999px;
+            border: 3px #81F7E5;
+        }
+
+        .card:nth-child(even)>.info>.title {
+            text-align: right;
+        }
+
+        .card:nth-child(odd)>.info>.title::before {
+            left: -45px;
+        }
+
+        .card:nth-child(even)>.info>.title::before {
+            right: -45px;
+        }
+
+        .text-blk {
+            margin-top: 0px;
+            margin-right: 0px;
+            margin-bottom: 0px;
+            margin-left: 0px;
+            line-height: 25px;
+        }
+
+        .responsive-cell-block {
+            min-height: 75px;
+        }
+
+        .responsive-container-block {
+            min-height: 75px;
+            height: fit-content;
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 40px;
+            margin-right: auto;
+            margin-bottom: 0px;
+            margin-left: auto;
+            justify-content: space-evenly;
+        }
+
+        .outer-container {
+            padding-top: 10px;
+            padding-right: 50px;
+            padding-bottom: 10px;
+            padding-left: 50px;
+            background-color: rgb(244, 252, 255);
+        }
+
+        .inner-container {
+            max-width: 1320px;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 50px;
+            margin-right: auto;
+            margin-bottom: 50px;
+            margin-left: auto;
+        }
+
+        .section-head-text {
+            margin-top: 0px;
+            margin-right: 0px;
+            margin-bottom: 5px;
+            margin-left: 0px;
+            font-size: 35px;
+            font-weight: 700;
+            line-height: 48px;
+            color: rgb(0, 135, 177);
+            margin: 0 0 10px 0;
+        }
+
+        .section-subhead-text {
+            font-size: 25px;
+            color: rgb(153, 153, 153);
+            line-height: 35px;
+            max-width: 470px;
+            text-align: center;
+            margin-top: 0px;
+            margin-right: 0px;
+            margin-bottom: 60px;
+            margin-left: 0px;
+        }
+
+        .img-wrapper {
+            width: 100%;
+        }
+
+        .team-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .social-media-links {
+            width: 70px;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .name {
+            font-size: 25px;
+            font-weight: 700;
+            color: rgb(102, 102, 102);
+            margin-top: 0px;
+            margin-right: 0px;
+            margin-bottom: 5px;
+            margin-left: 0px;
+        }
+
+        .position {
+            font-size: 25px;
+            font-weight: 700;
+            color: rgb(0, 135, 177);
+            margin-top: 0px;
+            margin-right: 0px;
+            margin-bottom: 50px;
+            margin-left: 0px;
+        }
+
+        .team-img {
+            width: 100%;
+            height: 100%;
+            border-radius: 10px;
+        }
+
+        .text-blk {
+            color: #3498db
+        }
+
+        .team-card-container {
+            width: 280px;
+            margin: 0 0 40px 0;
+        }
+
+        @media (max-width: 500px) {
+            .outer-container {
+                padding: 10px 20px 10px 20px;
+            }
+
+            .section-head-text {
+                text-align: center;
+            }
+        }
+
+        .inf {
+            border-color: #333;
+            color:black;
+            background-color: #81F7E5;
+        }
+
+
+        .team-img:hover {
+            scale: 1.05;
+            border-radius: 0;
+        }
+
+        .meet {
+            color: #3498db;
+            font-size: 30px;
+            font-style: italic;
+            padding: 20px;
+        }
+
+        .meet:hover {
+            background-color: #18eacb;
+            border-radius: 10px;
+            transition: width 0.5s ease;
+            font-size: 40px;
+        }
+
+        .about_heading {
+            font-size: 25px;
+            padding: 20px;
+        }
+        #li-box{
+            border:solid #6d20ac 5px;
+            border-radius:10px;
+            padding-top: 10px;
+        }
+        #li-box:hover{
+           transform: translateY(-7.5px);
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <img src="/static/logo_final.png" alt="Your Logo">
+        <div class="logo-name">SLIDE CRAFT</div>
+    </header>
+
+    <div class="separate-nav">
+        <a href="#about">About</a>
+        <a href="https://www.craiyon.com/" target="_blank">AI</a>
+        <a href="#timeline-container">Learn</a>
+        <a href="/login">Login</a>
+        <a href="#responsive-container-block outer-container">Contact</a>
+    </div>
+
+    <section class="hero">
+
+    </section>
+
+    <section class="cta">
+        <h2>Ready to bring your ideas to life?</h2>
+        <button type="button" onclick="openDropbox()">Start Now</button>
+        
+    </section>
+
+    <section class="features">
+        <div class="feature">
+            <h1>Easy to Use</h1>
+            <p>
+            <ul>
+                <li class="inf">Effortlessly create videos with our user-friendly platform. No technical skills
+                    required.</li>
+            </ul>
+            </p>
+        </div>
+        <div class="feature">
+            <h1>High-Quality Output</h1>
+            <p>
+            <ul>
+                <li class="inf">Experience stunning video quality with our advanced photo-to-video conversion
+                    technology.</li>
+            </ul>
+            </p>
+        </div>
+        <div class="feature">
+            <h1>Customization Options</h1>
+            <p>
+            <ul>
+                <li class="inf">Personalize your videos with a range of customization options, including music,
+                    transitions, and more.</li>
+            </ul>
+            </p>
+        </div>
+    </section>
+    <section class="about" id="about">
+        <div class="about-content">
+            <img src="/static/about.png" alt="About Image">
+        
+            <ul class="about_heading">
+                <h2>
+                    FEATURES
+                </h2>
+                <div id = "li-box"><li>Create stunning videos</div></li>
+                <div id = "li-box"><li>Empower creativity</div></li>
+                <div id = "li-box"><li>Provide user-friendly experience</div></li>
+                <div id = "li-box"><li>Advanced technologies</div></li>
+            </ul>
+            <div class="about-text">
+                <h2>About Slide Craft</h2>
+                <p>Slide Craft is a revolutionary platform that empowers users to transform their ideas into
+                    captivating videos. Our mission is to provide an intuitive and user-friendly experience, making
+                    video creation accessible to everyone. With advanced technologies and customizable options, Slide
+                    Craft is your go-to solution for producing high-quality videos effortlessly.
+
+                    At Slide Craft, we believe in the power of storytelling through visuals. Our platform empowers you
+                    to craft captivating slideshows that bring your memories to life in stunning detail.
+                    Our Mission:
+
+                    Slide Craft is on a mission to simplify the process of creating dynamic slideshows. We understand
+                    that your memories are precious, and our goal is to provide you with the tools you need to transform
+                    them into unforgettable experiences.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="timeline-container" id="timeline-container">
+        <div class="timeline">
+            <div class="outer">
+                <div class="card">
+                    <div class="info">
+                        <h3 class="title" style="text-align:center;">Step-1</h3>
+                        <p>Add a single or multilple images using the dropbox and audio file You can also
+                            select and delete the uploaded images.
+                        </p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="info">
+                        <h3 class="title" style="text-align: center;">Step 2</h3>
+                        <p>Select the time for each picture in slideshow and add suitable transition effect </p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="info">
+                        <h3 class="title" style="text-align: center;">Step 3</h3>
+                        <p>You are all good to go,and can watch the preview of video.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <h class="headlearn"><span style = "font-family:myfont2">Learn with SLIDE CRAFT</span></h>
+        <div class="timeline-image">
+            <img id = "time-img" src="/static/learn.png" alt="Timeline Image">
+        </div>
+    </section>
+
+    <div class="responsive-container-block outer-container" id="responsive-container-block outer-container">
+        <div class="responsive-container-block inner-container">
+            <p class="meet">
+                <u>Meet Our Team</u>
+            </p>
+            <div class="responsive-container-block">
+                <div class="responsive-cell-block wk-desk-3 wk-ipadp-3 wk-tab-6 wk-mobile-12 team-card-container">
+                    <div class="team-card">
+                        <div class="img-wrapper">
+                            <img class="team-img" src="/static/virat.png">
+                        </div>
+                        <p class="text-blk name">
+                            Virat Garg
+                        </p>
+
+                        <div class="social-media-links">
+                            <a href="http://www.instagram.com/_virat_garg" target="_blank">
+                                <img
+                                    src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/gray-insta.svg">
+                            </a>
+                            <a href="http://www.gargvirat5@gmail.com/" target="_blank">
+                                <img
+                                    src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/gray-mail.svg">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="responsive-cell-block wk-desk-3 wk-ipadp-3 wk-tab-6 wk-mobile-12 team-card-container">
+                    <div class="team-card">
+                        <div class="img-wrapper">
+                            <img class="team-img" src="/static/khwaish.png">
+                        </div>
+                        <p class="text-blk name">
+                            Khwaish Garg
+                        </p>
+                        <div class="social-media-links">
+                            <a href="http://www.instagram.com/khwaish.30" target="_blank">
+                                <img
+                                    src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/gray-insta.svg">
+                            </a>
+                            <a href="http://www.khwaishgarg38@gmail.com/" target="_blank">
+                                <img
+                                    src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/gray-mail.svg">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="responsive-cell-block wk-desk-3 wk-ipadp-3 wk-tab-6 wk-mobile-12 team-card-container">
+                    <div class="team-card">
+                        <div class="img-wrapper">
+                            <img class="team-img" src="/static/akshat.png">
+                        </div>
+                        <p class="text-blk name">
+                            Akshat Srivastava
+                        </p>
+
+                        <div class="social-media-links">
+                            <a href="http://www.instagram.com/" target="_blank">
+
+                                <img
+                                    src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/gray-insta.svg">
+
+                            </a>
+                            <a href="http://akshatsrivastava6951@gmail.com/" target="_blank">
+                                <img
+                                    src="https://workik-widget-assets.s3.amazonaws.com/widget-assets/images/gray-mail.svg">
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <footer>
+        <p>&copy; 2024 SLIDE CRAFT</p>
+    </footer>
+
+</body>
+
+</html>
