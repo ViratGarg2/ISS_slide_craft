@@ -35,8 +35,15 @@ def connect_to_database():
     # Connect to the database
     try:
         conn = psycopg2.connect(conn_str)
+        print("Successfully connected to database")
         return conn
     except psycopg2.OperationalError as e:
+        print(f"Database connection error: {e}")
+        
+        # Check if the root.crt file exists
+        if not os.path.exists('root.crt'):
+            print("Error: root.crt file not found")
+            
         return None
 
 def set_username(username):
@@ -54,6 +61,10 @@ url = 'postgresql://khwaish:vcgRLrp1-4aFAia-eYYx1A@slidecraft-4426.g95.gcp-us-we
 def create_tables():
     try:
         conn = connect_to_database()
+        if conn is None:
+            print("Error: Could not connect to database")
+            return
+        
         cursor = conn.cursor()
         cursor.execute("CREATE TABLE IF NOT EXISTS user_login (id SERIAL PRIMARY KEY, username VARCHAR(255), password VARCHAR(255), name VARCHAR(255), dob DATE);")
         cursor.execute("CREATE TABLE IF NOT EXISTS uploaded_images (id SERIAL PRIMARY KEY, Duration INT, name VARCHAR(255), path VARCHAR(255), size INT)")
@@ -97,6 +108,8 @@ def signup_submit():
 
     try:
         conn = connect_to_database()
+        if conn is None:
+            return 'Error connecting to database. Please try again.'
         cursor = conn.cursor()
         cursor.execute("SELECT * FROM user_login WHERE username = %s", (username,))
         existing_user = cursor.fetchone()
@@ -203,15 +216,28 @@ from moviepy.editor import ImageSequenceClip, concatenate_videoclips
 def create_video(transition_effect='pixelize'):
     try:
         conn = connect_to_database()
+        if conn is None:
+            print("Error: Could not connect to database")
+            return False
+            
         cursor = conn.cursor()
 
         image_folder = os.path.join(os.getcwd(), 'uploads')
+        
+        # Ensure the folder exists
+        if not os.path.exists(image_folder):
+            os.makedirs(image_folder)
 
-        image_files = [os.path.join(image_folder, f) for f in os.listdir(image_folder) if f.endswith(('.jpg', '.jpeg', '.png'))]
+        # Get all image files and sort them to ensure consistent order
+        image_files = sorted([os.path.join(image_folder, f) for f in os.listdir(image_folder) 
+                             if f.lower().endswith(('.jpg', '.jpeg', '.png', '.gif'))])
 
         if not image_files:
             print("No image files found.")
             return False
+
+        # Print the number of images found for debugging
+        print(f"Found {len(image_files)} images: {[os.path.basename(f) for f in image_files]}")
 
         fps = 24
         size = (256, 144)
@@ -220,53 +246,76 @@ def create_video(transition_effect='pixelize'):
         clips = []
         i = 0
         for image_file in image_files:
-            image_array_list = []
-            img = Image.open(image_file)
-            img = img.resize(size)
-            
-
-            num_frames = int(desired_duration * fps)
-            
-
-            for _ in range(num_frames):
-                image_array_list.append(np.array(img))
-            
-
-            clip = ImageSequenceClip(image_array_list, fps=fps)
-            
-
-            clip_file_path = f"clip{i}.mp4"
-            clip.write_videofile(clip_file_path, codec='libx264', audio_codec='aac')
-            i += 1
-            
-
-            cursor.execute("INSERT INTO uploaded_images (name, path) VALUES (%s, %s)", (clip_file_path, os.path.abspath(clip_file_path)))
-
+            try:
+                image_array_list = []
+                img = Image.open(image_file)
+                img = img.resize(size)
+                
+                num_frames = int(desired_duration * fps)
+                
+                for _ in range(num_frames):
+                    image_array_list.append(np.array(img))
+                
+                clip = ImageSequenceClip(image_array_list, fps=fps)
+                
+                clip_file_path = f"clip{i}.mp4"
+                clip.write_videofile(clip_file_path, codec='libx264', audio_codec='aac')
+                
+                # Verify the clip was created
+                if os.path.exists(clip_file_path):
+                    print(f"Successfully created {clip_file_path}")
+                    i += 1
+                    cursor.execute("INSERT INTO uploaded_images (name, path) VALUES (%s, %s)", 
+                                 (clip_file_path, os.path.abspath(clip_file_path)))
+                else:
+                    print(f"Failed to create {clip_file_path}")
+            except Exception as e:
+                print(f"Error processing image {image_file}: {e}")
 
         conn.commit()
 
+        # Handle the case where no clips were created
+        if i == 0:
+            print("No clips were created from the images.")
+            return False
 
-
-
-
+        # Create a list for the transitioned clips
         transitioned_clips = []
-        trans_clip_start=VideoFileClip("clip0.mp4")
-        transitioned_clips.append(trans_clip_start)
-        for j in range(i-2):
-            apply_transition(f"clip{j}.mp4", f"clip{j+1}.mp4", f"transitioned_clip{j}.mp4", 0.25, 0,T_effect)
-            trans_clip=VideoFileClip(f"transitioned_clip{j}.mp4")
-            transitioned_clips.append(trans_clip)
+        
+        # Add the first clip
+        if os.path.exists("clip0.mp4"):
+            trans_clip_start = VideoFileClip("clip0.mp4")
+            transitioned_clips.append(trans_clip_start)
+        else:
+            print("First clip (clip0.mp4) not found")
+            return False
 
+        # Apply transitions between clips
+        for j in range(i-1):  # Changed from i-2 to i-1 to include all clips
+            try:
+                if os.path.exists(f"clip{j}.mp4") and os.path.exists(f"clip{j+1}.mp4"):
+                    apply_transition(f"clip{j}.mp4", f"clip{j+1}.mp4", f"transitioned_clip{j}.mp4", 0.25, 0, T_effect)
+                    if os.path.exists(f"transitioned_clip{j}.mp4"):
+                        trans_clip = VideoFileClip(f"transitioned_clip{j}.mp4")
+                        transitioned_clips.append(trans_clip)
+                    else:
+                        print(f"Failed to create transition clip {j}")
+                else:
+                    print(f"Clip {j} or {j+1} not found")
+            except Exception as e:
+                print(f"Error creating transition between clips {j} and {j+1}: {e}")
 
+        # Ensure we have clips to concatenate
+        if len(transitioned_clips) == 0:
+            print("No transition clips were created.")
+            return False
+
+        # Concatenate all clips
         final_clip = concatenate_videoclips(transitioned_clips)
-
-
         final_clip.fps = fps
-
-
         final_clip.write_videofile("final_video.mp4", codec='libx264', audio_codec='aac')
 
-
+        # Clean up temporary files
         for j in range(i):
             temp_clip = f"clip{j}.mp4"
             if os.path.exists(temp_clip):
@@ -276,34 +325,23 @@ def create_video(transition_effect='pixelize'):
             if os.path.exists(transitioned_clip):
                 os.remove(transitioned_clip)
 
-
+        # Add audio to the video
         add_audio_to_video()
 
+        # Clean up the uploads folder
         delete_folders()
+        
         cursor.close()
         conn.close()
-
+        
         return True
 
     except psycopg2.Error as e:
         print("Error interacting with CockroachDB:", e)
         return False
-    
-def delete_folders():
-   try:
-       uploads_folder = os.path.join(os.getcwd(), 'uploads')
-       audio_folder = os.path.join(os.getcwd(), 'audio_uploads')
-       for file_name in os.listdir(uploads_folder):
-           file_path = os.path.join(uploads_folder, file_name)
-           os.remove(file_path)
-       for file_name in os.listdir(audio_folder):
-           file_path = os.path.join(audio_folder, file_name)
-           os.remove(file_path)
-       
-       print("All images deleted successfully.")
-   except Exception as e:
-       print("Error deleting images:", e)
-
+    except Exception as e:
+        print(f"Unexpected error in create_video: {e}")
+        return False
 
 def add_audio_to_video():
     try:
