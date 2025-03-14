@@ -157,7 +157,6 @@ def upload():
     try:
         conn = connect_to_database()
         cursor = conn.cursor()
-        
         for file in files:
             if file.filename == '':
                 continue
@@ -464,7 +463,7 @@ def upload_audio():
         desired_duration = int(desired_duration)  
         session['desired_duration'] = desired_duration
     if 'audio' not in request.files or desired_duration is None:
-        return jsonify({'message': 'No audio part or doration found'}), 400
+        return jsonify({'message': 'No audio part'}), 400
 
     audio_file = request.files['audio']
     if audio_file.filename == '':
