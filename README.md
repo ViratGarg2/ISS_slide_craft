@@ -1,15 +1,21 @@
-# 🎥 SlideCraft
+# SlideCraft
 
 SlideCraft is a web application built using **Flask, Python, HTML, CSS, and JavaScript** that allows users to create customized slideshow videos. Users can upload images, set the display duration for each image, choose transitions, add background music, and generate a final video seamlessly.
 
 ## ✨ Features
 
-- 📸 **Image Upload**: Users can upload multiple images to create a slideshow.
-- ⏳ **Custom Duration**: Select the time duration for each image in the video.
-- 🔄 **Transitions**: Choose from various transition effects between images.
-- 🎵 **Background Music**: Upload an audio file to be played in the video.
-- 🎬 **Video Generation**: Combines selected images, transitions, and music into a single video file.
-- 🔒 **User Authentication**: Secure login and session management (if applicable).
+-  **Image Upload**: Users can upload multiple images to create a slideshow.
+-  **Custom Duration**: Select the time duration for each image in the video.
+-  **Transitions**: Choose from various transition effects between images.
+-  **Background Music**: Upload an audio file to be played in the video.
+-  **Video Generation**: Combines selected images, transitions, and music into a single video file.
+-  **User Authentication**: Secure login and session management (if applicable).
+
+
+## 🎥 Demo Run
+
+You can check out a live demo of SlideCraft here:
+[🔗 Demo Link](https://iiithydstudents-my.sharepoint.com/:v:/g/personal/virat_garg_students_iiit_ac_in/EXRGWzG6InVMnukfDIlKYi4BBPgK2OxT8IxchGdA4r-lrw?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=qwQ6E9) (Replace with actual link when available)
 
 ## 🛠 Technologies Used
 
@@ -22,10 +28,10 @@ SlideCraft is a web application built using **Flask, Python, HTML, CSS, and Java
 
 ### Prerequisites
 Ensure you have the following installed:
-- 🐍 Python 3.x
-- 🖥 Flask
-- 🎞 FFmpeg
-- 🗄 PostgreSQL
+-  Python 3.x
+-  Flask
+-  FFmpeg
+-  PostgreSQL
 
 ### Steps to Run the Project
 
@@ -61,38 +67,4 @@ Ensure you have the following installed:
    ```
    http://127.0.0.1:5000/
    ```
-
-## 🎥 Demo Run
-
-You can check out a live demo of SlideCraft here:
-[🔗 Demo Link](#) (Replace with actual link when available)
-
-## 📖 Usage
-
-1. **Upload Images**: Select and upload multiple images.
-2. **Set Duration**: Choose the display time for each image.
-3. **Select Transitions**: Pick from different transition effects.
-4. **Upload Music**: Choose an audio file to be used in the video.
-5. **Generate Video**: Click the "Create Video" button to process and download the final slideshow.
-
-## 📂 File Structure
-```
-slidecraft/
-│── static/               # CSS, JS, images, etc.
-│── templates/            # HTML templates
-│── uploads/              # Uploaded images and audio
-│── app.py                # Main Flask application
-│── requirements.txt       # Dependencies
-│── config.py             # Configuration settings
-│── README.md             # Project documentation
-```
-
-## 🤝 Contributing
-Contributions are welcome! Feel free to fork the repository and submit pull requests.
-
-## 📜 License
-This project is licensed under the MIT License.
-
-## 📩 Contact
-For any issues or suggestions, feel free to reach out at **your-email@example.com**.
 
